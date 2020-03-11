@@ -48,12 +48,65 @@
         </div>
     </div>
 
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Usuario</label>
+        <div class="col">
 
+            <input class="form-control" type="text" placeholder="Usuario" formControlName="usuario" [class.is-invalid]="usuarioNoValido">
+            <small class="text-danger" *ngIf="usuarioNoValido">Usuario Invalido</small>
+        </div>
+    </div>
 
     <div class="form-group row">
-        <label class="col-2 col-form-label">&nbsp;</label>
-        <div class="input-group col">
-            <button type="submit" class="btn btn-outline-primary btn-block">
+        <label class="col-2 col-form-label">Constraseña</label>
+        <div class="col">
+
+            <input class="form-control" type="password" placeholder="Constraseña" formControlName="pass1" [class.is-invalid]="pass1NoValido">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Repita Constraseña</label>
+        <div class="col">
+
+            <input class="form-control" type="password" placeholder="Repita Constraseña" formControlName="pass2" [class.is-invalid]="pass2NoValido">
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Pasatiempo</th>
+                        <th>Borrar</th>
+                    </tr>
+
+                </thead>
+                <tbody formArrayName="pasatiempos">
+                    <tr *ngFor="let control of pasatiemposArray.controls; let idx = index">
+                        <td>{{idx + 1}}</td>
+                        <td>
+                            <input class="form-control" type="text" [formControlName]="idx">
+
+                        </td>
+                        <td>
+                            <button class="btn btn-danger" (click)="borrarPasatiempo(idx)">Borrar</button>
+                        </td>
+                    </tr>
+                </tbody>
+
+
+            </table>
+            <button type="button" class="btn btn-primary btn-block mb-5 mt-3 " (click)="agregarPasatiempo()">Agregar</button>
+        </div>
+    </div>
+
+    <div class="form-group row ">
+        <label class="col-2 col-form-label ">&nbsp;</label>
+        <div class="input-group col ">
+            <button type="submit " class="btn btn-outline-primary btn-block ">
         Guardar
       </button>
         </div>
