@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ControlContainer } from '@angular/forms';
 
 @Component({
   selector: 'app-reactive',
@@ -17,17 +17,46 @@ export class ReactiveComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  get nombreNoValido() {
+    return this.forma.get('nombre').invalid && this.forma.get('nombre').touched;
+  }
+  get apellidoNoValido() {
+    return this.forma.get('apellido').invalid && this.forma.get('apellido').touched;
+  }
+  get correoNoValido() {
+    return this.forma.get('correo').invalid && this.forma.get('correo').touched;
+  }
+  get distritoNoValido() {
+    return this.forma.get('direccion.distrito').invalid && this.forma.get('direccion.distrito').touched;
+  }
+
+  get ciudadNoValido() {
+    return this.forma.get('direccion.ciudad').invalid && this.forma.get('direccion.ciudad').touched;
+  }
+
   crearFormulario() {
     this.forma = this.formBuilder.group({
 // valor por defecto en la primera posicion seguido por el formControl, 2. validadores sync, 3. validadores async
       nombre: ['', Validators.required],
-      apellido: [''],
-      correo: ['']
+      apellido: ['', [Validators.required, Validators.minLength(3)] ],
+      correo: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')] ],
+      direccion: this.formBuilder.group({
+        distrito: ['', Validators.required],
+        ciudad: ['', Validators.required],
+      })
     });
   }
 
-  guardar(){
-    console.log(this.forma);
+  guardar() {
+    if (this.forma.invalid) {
+      return Object.values(this.forma.controls).forEach(control => {
+        if (control instanceof FormGroup) {
+          Object.values(control.controls).forEach(controlesHijos => controlesHijos.markAsTouched() );
+        } else {
+          control.markAsTouched();
+        }
+      });
+    }
   }
 
 }

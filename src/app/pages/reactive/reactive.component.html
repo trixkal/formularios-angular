@@ -6,17 +6,34 @@
 
         <div class="form-group row">
             <label class="col-2 col-form-label">Nombre</label>
-            <div class="col-8">
+            <div class="col">
 
-                <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre">
+                <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre" [class.is-invalid]="nombreNoValido">
+                <small class="text-danger" *ngIf="nombreNoValido">Nombre Invalido</small>
             </div>
         </div>
 
         <div class="form-group row">
             <label class="col-2 col-form-label">Apellido</label>
-            <div class="col-8">
+            <div class="col">
 
-                <input class="form-control" type="text" placeholder="Apellido" formControlName="apellido">
+                <input class="form-control" type="text" placeholder="Apellido" formControlName="apellido" [class.is-invalid]="apellidoNoValido">
+                <small class="text-danger" *ngIf="apellidoNoValido">Apellido Invalido</small>
+            </div>
+        </div>
+
+        <div class="form-group row" formGroupName="direccion">
+            <label class="col-2 col-form-label">Direccion</label>
+            <div class="form-row col">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Distrito" formControlName="distrito" [class.is-invalid]="distritoNoValido">
+                </div>
+
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Ciudad" formControlName="ciudad" [class.is-invalid]="ciudadNoValido">
+                </div>
+
+
             </div>
         </div>
 
@@ -24,9 +41,10 @@
 
     <div class="form-group row">
         <label class="col-2 col-form-label">Correo</label>
-        <div class="col-8">
+        <div class="col">
 
-            <input class="form-control" type="email" placeholder="Correo electrónico" formControlName="correo">
+            <input class="form-control" type="email" placeholder="Correo electrónico" formControlName="correo" [class.is-invalid]="correoNoValido">
+            <small class="text-danger" *ngIf="correoNoValido">Correo electrónico Invalido</small>
         </div>
     </div>
 
@@ -34,7 +52,7 @@
 
     <div class="form-group row">
         <label class="col-2 col-form-label">&nbsp;</label>
-        <div class="input-group col-md-8">
+        <div class="input-group col">
             <button type="submit" class="btn btn-outline-primary btn-block">
         Guardar
       </button>

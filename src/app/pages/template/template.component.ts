@@ -9,7 +9,7 @@ import { PaisService } from '../../services/pais.service';
 })
 export class TemplateComponent implements OnInit {
 
-  //para valores por defecto
+  // Para valores por defecto
   usuario = {
     nombre: '',
     correo: '',
